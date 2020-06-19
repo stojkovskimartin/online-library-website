@@ -1,0 +1,76 @@
+drop schema if exists `emtlab2`;
+
+create schema `emtlab2`;
+
+use `emtlab2`;
+
+DROP TABLE IF EXISTS `categorization`;
+create table `categorization`(
+`id` int(20) not null AUTO_INCREMENT,
+`name` varchar(50) not null,
+`categorization` varchar(50000) not null,
+primary key(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into `categorization` (`id`,`name`,`categorization`) values ('1', 'Comics', 'Comic books are magazines that use a series of pictures.');
+insert into `categorization` (`id`,`name`,`categorization`) values ('2', 'Travel', 'Travel book is a book of information about a place designed');
+insert into `categorization` (`id`,`name`,`categorization`) values ('3', 'Action&Adventure', 'Action and Adventure is a genre of fiction that usually involves an adventure');
+
+drop table `categorization`;
+
+DROP TABLE IF EXISTS `library`;
+create table `library`(
+`id` int(20) not null AUTO_INCREMENT,
+`book` varchar(50) not null,
+`num` int(50) not null,
+`price` int(50) not null,
+`image` longblob not null,
+`id_categorization` int(50) not null,
+primary key(`id`),
+constraint `fk_products` foreign key (`id_categorization`) REFERENCES `categorization` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+drop table `library`;
+
+DROP TABLE IF EXISTS `user`;
+create table `user`(
+`id` int(50) not null auto_increment,
+`email` varchar(50) not null,
+`password` varchar(50) not null,
+`confirm_password` varchar(50) not null,
+`first_name` varchar(50) not null,
+`last_name` varchar(50) not null,
+`enabled` boolean not null,
+`confirmation_token` varchar(50) not null,
+primary key(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `shopping_carts`;
+create table `shopping_carts`(
+`id` int(20) not null AUTO_INCREMENT,
+`create_date` datetime,
+`close_date` datetime,
+`status` varchar(50) not null,
+`id_user` int(50) not null,
+primary key(`id`),
+constraint `fk_shop_cart` foreign key (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+drop table if exists `user_carts`;
+create table `user_carts`(
+`id_library` int(20) not null,
+`id_shopping` int(20) not null,
+primary key(`id_library`, `id_shopping`),
+constraint `fk_lib` foreign key (`id_library`) REFERENCES `library` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+constraint `fk_cart` foreign key (`id_shopping`) REFERENCES `shopping_carts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+drop table user_carts;
+
+create table `hibernate_sequence`(
+next_val bigint
+);
+insert into `hibernate_sequence` (`next_val`) values('1');
+insert into `hibernate_sequence` (`next_val`) values('1');
+
+

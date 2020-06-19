@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous" />
+
+    <link th:href="@{css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+    <form autocomplete="off" action="#" th:action="@{/submitLogin}"
+          method="post"
+          class="m-t"
+          role="form"
+          data-toggle="validator">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label th:text="${error}"></label>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="firstName" class="form-control" placeholder="Username" required="" autofocus="">
+
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <hr>
+        <button type="submit" class="btn btn-primary btn-lg btn-block"><a th:href="@{/register}" style="color: white">Register Now</a></button>
+    </form>
+</div>
+</body>
+</html>
